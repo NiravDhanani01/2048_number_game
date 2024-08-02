@@ -1,0 +1,47 @@
+*{
+    padding: 0;
+    box-sizing: border-box;
+}
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.newGameBtn {
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    padding: 7px 15px;
+    margin: 10px;
+}
+
+.game {
+    display: flex;
+    justify-content: center;
+}
+
+.gameZone {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 410px;
+    height: 410px;
+    font-size: 30px;
+    position: relative;
+}
+
+.grid {
+    background-color: antiquewhite;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    align-content: center;
+    border: 1px solid black;
+    /* position: absolute; */
+}
