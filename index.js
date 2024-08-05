@@ -29,40 +29,35 @@ const displayGame = () => {
 
 // generate new number
 const numberGenerator = (num) => {
-  let setNum = 2;
+  try {
+    let setNum = 2;
 
-  if (score > 200) {
-    let setTarget = Math.ceil(Math.random() * 2);
-    if (setTarget <= 1) {
-      setNum = 2;
-    } else {
-      setNum = 4;
-    }
-  }
-
-  for (let i = 0; i < num; i++) {
-    let x = Math.floor(Math.random() * col).toString();
-    let y = Math.floor(Math.random() * row).toString();
-    let id = `${x}-${y}`;
-    let box = document.getElementById(id);
-
-    if (box.getAttribute("test") == "false") {
-      numArray.push(id);
-      box.innerHTML = setNum;
-      box.setAttribute("test", "true");
-    } else {
-      i--;
-    }
-  }
-
-  for (let i = 0; i < row; i++) {
-    for (let j = 0; j < col; j++) {
-      let id = `${i}-${j}`;
-      let value = document.getElementById(id);
-      if (value.innerText === "16") {
-        gameOver();
+    if (score > 200) {
+      let setTarget = Math.ceil(Math.random() * 2);
+      if (setTarget <= 1) {
+        setNum = 2;
+      } else {
+        setNum = 4;
       }
     }
+
+    for (let i = 0; i < num; i++) {
+      let x = Math.floor(Math.random() * col).toString();
+      let y = Math.floor(Math.random() * row).toString();
+      let id = `${x}-${y}`;
+      let box = document.getElementById(id);
+
+      if (box.getAttribute("test") == "false") {
+        numArray.push(id);
+        box.innerHTML = setNum;
+        box.setAttribute("test", "true");
+      } else {
+        i--;
+      }
+    }
+  } catch (err) {
+    console.log(err);
+    gameOver();
   }
 };
 
@@ -82,48 +77,43 @@ document.addEventListener("keydown", function (e) {
 });
 
 const moveLeft = () => {
-  try {
-    for (let i = 0; i < row; i++) {
-      let currentPosition = [];
-      for (let j = 0; j < col; j++) {
-        let id = `${i}-${j}`;
-        let value = document.getElementById(id).innerText;
-        if (value !== "") {
-          currentPosition.push(parseInt(value));
-          document.getElementById(id).innerText = "";
-          document.getElementById(id).setAttribute("test", "false");
-        }
-      }
-
-      let mergePosition = [];
-      while (currentPosition.length > 0) {
-        let value = currentPosition.shift();
-        if (currentPosition.length > 0 && currentPosition[0] === value) {
-          mergePosition.push(value * 2);
-          score += value * 2;
-          currentPosition.shift();
-        } else {
-          mergePosition.push(value);
-        }
-      }
-
-      for (j = 0; j < col; j++) {
-        let id = `${i}-${j}`;
-        let value = mergePosition.shift();
-        if (value !== undefined) {
-          document.getElementById(id).innerText = value;
-          document.getElementById(id).setAttribute("test", "true");
-        }
+  for (let i = 0; i < row; i++) {
+    let currentPosition = [];
+    for (let j = 0; j < col; j++) {
+      let id = `${i}-${j}`;
+      let value = document.getElementById(id).innerText;
+      if (value !== "") {
+        currentPosition.push(parseInt(value));
+        document.getElementById(id).innerText = "";
+        document.getElementById(id).setAttribute("test", "false");
       }
     }
-    console.log(a);
 
-    document.getElementById("score").innerText = `${score}`;
-    numberGenerator(1);
-  } catch (err) {
-    console.log(err);
-    gameOver();
+    let mergePosition = [];
+    while (currentPosition.length > 0) {
+      let value = currentPosition.shift();
+      if (currentPosition.length > 0 && currentPosition[0] === value) {
+        mergePosition.push(value * 2);
+        score += value * 2;
+        currentPosition.shift();
+      } else {
+        mergePosition.push(value);
+      }
+    }
+
+    for (j = 0; j < col; j++) {
+      let id = `${i}-${j}`;
+      let value = mergePosition.shift();
+      if (value !== undefined) {
+        document.getElementById(id).innerText = value;
+        document.getElementById(id).setAttribute("test", "true");
+      }
+    }
   }
+
+  document.getElementById("score").innerText = `${score}`;
+  numberGenerator(1);
+  gameOver();
 };
 
 const moveRight = () => {
@@ -163,6 +153,7 @@ const moveRight = () => {
 
   document.getElementById("score").innerText = `${score}`;
   numberGenerator(1);
+  gameOver();
 };
 
 const moveUp = () => {
@@ -201,6 +192,7 @@ const moveUp = () => {
   }
   document.getElementById("score").innerText = `${score}`;
   numberGenerator(1);
+  gameOver();
 };
 
 const moveDown = () => {
@@ -239,6 +231,7 @@ const moveDown = () => {
   }
   document.getElementById("score").innerText = `${score}`;
   numberGenerator(1);
+  gameOver();
 };
 
 const newGame = () => {
@@ -249,7 +242,49 @@ const newGame = () => {
 };
 
 const gameOver = () => {
-  alert("game Over");
-  newGame();
+//   let empty = true
+//   for (let i = 0; i < row; i++) {
+//     for (let j = 0; j < col; j++) {
+//       let id = `${i}-${j}`;
+//       let value = parseInt(document.getElementById(id).innerText)
+
+//       if (value === 2048) {
+//         alert("You Win");
+//         newGame();
+//       }
+
+//       if(j < col - 1){
+//         let down = parseInt(document.getElementById(id).innerText)
+//         down == value
+//         empty = false;
+//       }
+
+//       if(i < row -1 ){
+//         let left =  parseInt(document.getElementById(id).innerText)
+//         left == value
+//         empty = false
+//       }
+//     }
+//   }
+
+// if(empty == true){
+//   alert("game  over");
+// }
+
+  let count = 0;
+  let box = document.querySelectorAll(".grid");
+  box.forEach((element) => {
+    if (element.getAttribute("test") != "false") {
+      count++;
+    }
+  });
+
+  if (count === 16) {
+    setTimeout(() => {
+      alert("game  over");
+      newGame();
+    }, 1000);
+  }
 };
+
 displayGame();
