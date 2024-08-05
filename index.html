@@ -4,27 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2048 Number Game</title>
+    <title>2048 Game</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="gameTitle">
-            <h1 class="text-center">2048 Number Game</h1>
-            <p class="text-center">
-                score : <span id="score">0</span>
-            </p>
-          <div class="game">
-            <div id="gameBox" class="gameZone"></div>
-          </div>
-            <div class="newGameBtn">
-                <button class="btn" onclick="newGame()">New Game</button>
-            </div>
-        </div>
-    </div>
-</body>
 
-<script src="./index.js"></script>
+    <div id="gameContainer">
+        <h1>2048 Game</h1>
+        <div>Score:<div id="score"> 0</div>
+        </div>
+        <div id="gameBox"></div>
+        <button onclick="newGame()">New Game</button>
+    </div>
+
+    <script src="index.js"></script>
+</body>
 
 </html>

@@ -1,110 +1,234 @@
-
 const game = document.getElementById("gameBox");
-let gameBoard = document.querySelectorAll('.grid')
+
+let gameBoard = [];
 const col = 4;
 const row = 4;
-const grid = col * row
-let score = 0
-let allBox = []
-let numArray = []
+let score = 0;
+let allBox = [];
+let numArray = [];
 
+// Initialize the game grid
 const displayGame = () => {
-    game.innerHTML = ""
-    for (let i = 0; i < col; i++) {
-        let rowArr = []
-        for (let j = 0; j < row; j++) {
-            const div = document.createElement("div");
-            div.classList.add("grid");
-            div.innerHTML = ``
-            div.id = `${i}-${j}`
-            div.setAttribute("test", "false");
-            rowArr.push(`${i}-${j}`)
-            game.appendChild(div)
-        }
-        allBox.push(rowArr)
+  game.innerHTML = "";
+  allBox = [];
+  for (let i = 0; i < col; i++) {
+    let rowArr = [];
+    for (let j = 0; j < row; j++) {
+      const div = document.createElement("div");
+      div.classList.add("grid");
+      div.id = `${i}-${j}`;
+      div.setAttribute("test", "false");
+      rowArr.push(div);
+      game.appendChild(div);
     }
-    numberGenrator(2)
-}
+    allBox.push(rowArr);
+  }
+  numberGenerator(2);
+};
 
-const numberGenrator = (num) => {
-    for (let i = 0; i < num; i++) {
-        let x = Math.floor(Math.random() * col).toString()
-        let y = Math.floor(Math.random() * row).toString()
-        let id = `${x}-${y}`
-        let boxes = document.getElementById(id)
+const numberGenerator = (num) => {
+  for (let i = 0; i < num; i++) {
+    let x = Math.floor(Math.random() * col).toString();
+    let y = Math.floor(Math.random() * row).toString();
+    let id = `${x}-${y}`;
+    let box = document.getElementById(id);
 
-        if (boxes.getAttribute("test") == "false") {
-            numArray.push(id)
-            document.getElementById(id).innerHTML = 2
-            document.getElementById(id).setAttribute("test", "true");
-        } else {
-            i--
-        }
-        if (numArray.length == col * row) {
-            document.addEventListener("keydown", function (e) {
-                e.preventDefault()
-            })
-            setTimeout(() => {
-                alert("game over")
-            }, 0.500)
-            return
-        }
+    if (box.getAttribute("test") == "false") {
+      numArray.push(id);
+      box.innerHTML = "2";
+      box.setAttribute("test", "true");
+    } else {
+      i--; 
     }
-}
+  }
+};
 
-
+// Handle keydown events for movement
 document.addEventListener("keydown", function (e) {
-    if (e.keyCode == 37) {
-        moveLeft()
-    }
-    if (e.keyCode == 38) {
-        moveUp()
-    }
-    if (e.keyCode == 39) {
-        moveRight()
-    }
-    if (e.keyCode == 40) {
-        moveDown()
-    }
-})
+  if (e.keyCode == 37) {
+    moveLeft();
+  }
+  if (e.keyCode == 38) {
+    moveUp();
+  }
+  if (e.keyCode == 39) {
+    moveRight();
+  }
+  if (e.keyCode == 40) {
+    moveDown();
+  }
+});
 
 const moveLeft = () => {
-    numberGenrator(1)
-}
+    // for (let i = 0; i < row; i++) {
+    //     let currentPosition = [];
+    //     for (let j = 0; j < col; j++) {
+    //         let id = `${i}-${j}`;
+    //         let value = document.getElementById(id).innerText;
+    //         if (value !== "") {
+    //             currentPosition.push(parseInt(value));
+    //             document.getElementById(id).innerText = "";
+    //             document.getElementById(id).setAttribute("test", "false");
+    //         }
+    //     }
+
+    //     let mergePosition = [];
+    //     while (currentPosition.length > 0) {
+    //         let value = currentPosition.shift();
+    //         if (
+    //             currentPosition.length > 0 &&
+    //             currentPosition[0] === value
+    //         ) {
+    //             mergePosition.push(value * 2);
+    //             score += value * 2;
+    //             currentPosition.shift();
+    //         } else {
+    //             mergePosition.push(value);
+    //         }
+    //     }
+
+    //     for (let j = 0; j < col; j++) {
+    //         let id = `${i}-${j}`;
+    //         let value = mergePosition.shift();
+    //         if (value !== undefined) {
+    //             document.getElementById(id).innerText = value;
+    //             document.getElementById(id).setAttribute("test", "true");
+    //         }
+    //     }
+    // }
+    // document.getElementById("score").innerText = `${score}`;
+    numberGenerator(1);
+};
+
 const moveRight = () => {
-    numberGenrator(1)
-}
+    // for (let i = 0; i < row; i++) {
+    //     let currentPosition = [];
+    //     for (let j = col - 1; j >= 0; j--) {
+    //         let id = `${i}-${j}`;
+    //         let value = document.getElementById(id).innerText;
+    //         if (value !== "") {
+    //             currentPosition.push(parseInt(value));
+    //             document.getElementById(id).innerText = "";
+    //             document.getElementById(id).setAttribute("test", "false");
+    //         }
+    //     }
+
+    //     let mergePosition = [];
+    //     while (currentPosition.length > 0) {
+    //         let value = currentPosition.shift();
+    //         if (
+    //             currentPosition.length > 0 &&
+    //             currentPosition[0] === value
+    //         ) {
+    //             mergePosition.push(value * 2);
+    //             score += value * 2;
+    //             currentPosition.shift();
+    //         } else {
+    //             mergePosition.push(value);
+    //         }
+    //     }
+
+    //     for (let j = col - 1; j >= 0; j--) {
+    //         let id = `${i}-${j}`;
+    //         let value = mergePosition.shift();
+    //         if (value !== undefined) {
+    //             document.getElementById(id).innerText = value;
+    //             document.getElementById(id).setAttribute("test", "true");
+    //         }
+    //     }
+    // }
+    // document.getElementById("score").innerText = `${score}`;
+    numberGenerator(1);
+};
+
 const moveUp = () => {
-    numberGenrator(1)
-}
-
-
-const moveDown = () => {
-    numArray.forEach(element => {
-        let splitId = element.split("-")
-        let x = parseInt(splitId[0])
-        let y = parseInt(splitId[1])
-        console.log(`${x}-${y}`);
-
+    for (let j = 0; j < col; j++) {
+        let currentPosition = [];
         for (let i = 0; i < row; i++) {
-            for (let j = 0; j < col; j++) {
-                let id = `${x}-${y}`
-                let num = document.getElementById(id)
-                // if (num.innerText != null) {
-                //     // console.log(`${x + 1}-${y}`);
-                //     // document.getElementById(`${x + 1}-${y}`).innerText = 2
-                // }
+            let id = `${i}-${j}`;
+            let value = document.getElementById(id).innerText;
+            if (value !== "") {
+                currentPosition.push(parseInt(value));
+                document.getElementById(id).innerText = "";
+                document.getElementById(id).setAttribute("test", "false");
             }
         }
-    });
 
-    numberGenrator(1)
-}
+        let mergePosition = [];
+        while (currentPosition.length > 0) {
+            let value = currentPosition.shift();
+            if (
+                currentPosition.length > 0 &&
+                currentPosition[0] === value
+            ) {
+                mergePosition.push(value * 2);
+                score += value * 2;
+                currentPosition.shift();
+            } else {
+                mergePosition.push(value);
+            }
+        }
 
+        for (let i = 0; i < row; i++) {
+            let id = `${i}-${j}`;
+            let value = mergePosition.shift();
+            if (value !== undefined) {
+                document.getElementById(id).innerText = value;
+                document.getElementById(id).setAttribute("test", "true");
+            }
+        }
+    }
+    document.getElementById("score").innerText = `${score}`;
+    numberGenerator(1);
+};
+
+const moveDown = () => {
+    for (let j = 0; j < col; j++) {
+        let currentPosition = [];
+        for (let i = row - 1; i >= 0; i--) {
+            let id = `${i}-${j}`;
+            let value = document.getElementById(id).innerText;
+            if (value !== "") {
+                currentPosition.push(parseInt(value));
+                document.getElementById(id).innerText = "";
+                document.getElementById(id).setAttribute("test", "false");
+            }
+        }
+
+        let mergePosition = [];
+        while (currentPosition.length > 0) {
+            let value = currentPosition.shift();
+            if (
+                currentPosition.length > 0 &&
+                currentPosition[0] === value
+            ) {
+                mergePosition.push(value * 2);
+                score += value * 2;
+                currentPosition.shift();
+            } else {
+                mergePosition.push(value);
+            }
+        }
+
+        for (let i = row - 1; i >= 0; i--) {
+            let id = `${i}-${j}`;
+            let value = mergePosition.shift();
+            if (value !== undefined) {
+                document.getElementById(id).innerText = value;
+                document.getElementById(id).setAttribute("test", "true");
+            }
+        }
+    }
+    document.getElementById("score").innerText = `${score}`;
+    numberGenerator(1);
+};
+
+// Reset and start a new game
 const newGame = () => {
-    document.getElementById("score").innerHTML = `0`
-    numArray = []
-    displayGame()
-}
+  document.getElementById("score").innerText = `0`;
+  score = 0;
+  numArray = [];
+  displayGame();
+};
 
-displayGame()
+displayGame();
